@@ -1,15 +1,10 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
-import PaymentMethod from "../models/userPaymentMethod.model.js";
-import Stripe from 'stripe';
 import mongoose from "mongoose";
-
-const stripe = new Stripe("sk_test_51QWmgRGI6UEWLGcVrfkYdIitb29zTKm7WDBXgfklEyWexo6rCMgKxpUH0UeTMPI2FZX7UVhHVpXvNOu8VjfMGHoc004ZxQiqwE");
 
 // @desc Register user
 // @route POST /api/v1/users/register
@@ -34,12 +29,6 @@ const registerUser = asyncHandler(async (req, res) => {
     return res.status(409).json(new ApiResponse(409, "User already exists"));
   }
 
-  const customer=await stripe.customers.create({
-    email:email,
-    name:fullName
-});
-
-
 if(!customer){
   return res.status(500).json(new ApiResponse(500, "Error creating user. Please try again"));
 }
@@ -55,12 +44,6 @@ if(!customer){
   if (!createdUser) {
     return res.status(500).json(new ApiResponse(500, "Error creating user"));
   }
-
-  //create payment method
-  const paymentMethod = await PaymentMethod.create({
-    stripeCustomerId: customer.id,
-    userId: createdUser._id,
-  });
 
   return res
     .status(201)
@@ -81,7 +64,7 @@ const loginUser = asyncHandler(async (req, res) => {
       .json(new ApiResponse(400, "Email and password are required"));
     return;
   }
-
+z
   const user = await User.findOne({ email });
   if (!user) {
     res.status(404).json(new ApiResponse(404, "User not found"));
@@ -255,7 +238,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       return res.status(400).json(new ApiResponse(400, "Invalid image"));
     }
   }
-
     user.fullName = fullName ? fullName : user.fullName;
     user.email = email ? email : user.email;
     user.location = location ? location : user.location;
@@ -268,7 +250,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.city = city ? city : user.city;
     user.gender=  gender ? gender: user.gender ;
     user.description= description? description: user.description;
-
 
     await user.save();
 
@@ -366,7 +347,6 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 });
 
-
 // @desc get current user
 // @route GET /api/v1/users/:userid
 // @access Admin
@@ -386,7 +366,6 @@ const getUserById = asyncHandler(async (req, res) => {
       );
   }
 });
-
 
 // @desc update user profile by id
 // @route POST /api/v1/users/update-user/:id
@@ -410,8 +389,6 @@ const updateUserById = asyncHandler(async (req, res) => {
       return res.status(400).json(new ApiResponse(400, "Invalid user id"));
     }
     
-
-   
     console.log(req.body, "req.body");
     console.log(profilePath, "req.file")
 
@@ -496,7 +473,6 @@ const deleteUserById = asyncHandler(async (req, res) => {
 const getTopSellers = asyncHandler(async (req, res) => {
   try {
     
-    
     const topSellers = await User.aggregate([
       {
         $lookup: {
@@ -526,7 +502,6 @@ const getTopSellers = asyncHandler(async (req, res) => {
               },
             },
           },
-
         },
       },
         
@@ -551,7 +526,6 @@ const getTopSellers = asyncHandler(async (req, res) => {
       );
   }
 })
-
 
 // @desc TOP FIVE CITIES WHICH HAVE MOST USERS
 // @route GET /api/v1/users/top-cities

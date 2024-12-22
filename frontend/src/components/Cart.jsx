@@ -1,28 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCartItems, reset } from "../store/cart/cartSlice";
 import axios from "axios";
-import { useStripe } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+
 
 const Cart = () => {
   const [cartItem, setCartItem] = useState();
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  // const stripe = useStripe();
-  const [stripe, setStripe] = useState(null);
-
-  useEffect(() => {
-    const fetchStripe = async () => {
-      const stripe = await loadStripe("pk_test_51QWmgRGI6UEWLGcVeJIZTm52JfHmGvWi4mngrQCRIk2enq1kuuY9Ta8LOLEainpfIatEw6YZegKPaKwk0wvz7g0A00S8xc1cJA");
-      setStripe(stripe);
-    };
-
-    fetchStripe();
-  }, []);
-
-  //console.log(cartItem);
+  console.log(cartItem);
 
   useEffect(() => {
     dispatch(getCartItems());
@@ -36,41 +23,31 @@ const Cart = () => {
 
   const redirectToCheckout = async (product) => {
     // event.preventDefault();
-    const lineItems = [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: product.name,
-            images: [product.image],
-          },
-          unit_amount: product.startingPrice * 100, // because stripe interprets price in cents
-        },
-        quantity: 1,
-      },
-    ];
-    const sendProductData = { id: product._id, lineItems: lineItems };
+    const sendProductData = { id: product._id,};
+    console.log("sendProductDataingggggggggg", sendProductData);
     const { data } = await axios.post(
       "http://localhost:8000/api/v1/payments/checkout",
       {
         sendProductData,
+        
       },
       {
         withCredentials: true,
       }
     );
 
-    const result = await stripe.redirectToCheckout({
-      sessionId: data.id,
-    });
-    //console.log(result);
 
-    if (result.error) {
-      //console.log(result.error.message);
+    console.log("Data", data);
+    console.log("Data", data);
+    console.log("Data", data);
+
+    if (data.error) {
+      console.log("Henaaaaaaaaaaaa", data.error.message);
     } else {
-      alert("succes");
+      alert("success");
+       // Redirect to the URL provided by the backend
     }
-  };
+}
 
   return (
     <div className=" px-7 py-4 w-full bg-theme-bg text-slate-300 rounded-2xl ">
