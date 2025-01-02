@@ -22,7 +22,7 @@ const SingleAuction = ({
   });
 
   const logInUser = JSON.parse(localStorage.getItem("user"));
-  //console.log("data", id);
+  //// console.log("data", id);
 
   return (
     <div className="h-full justify-between bg-theme-bg rounded-lg flex flex-col p-3 text-white">

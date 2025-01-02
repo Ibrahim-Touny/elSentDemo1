@@ -12,7 +12,7 @@ const PAYMOB_API_URL = process.env.PAYMOB_API_URL;
 import Auction from "../models/auction.model.js";
 // Payment Controller function for creating the payment order
 export const createPaymentOrder = async (req, res) => {
-  console.log("usersssss", req.user);
+  // console.log("usersssss", req.user);
   try {
     const { amount_cents } = req.body;
 
@@ -134,7 +134,7 @@ export const capture = async (req, res) => {
       transaction_id,
       amount_cents
     );
-    console.log("captureResponse", captureResponse);
+    // console.log("captureResponse", captureResponse);
     res.json({ captureResponse });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -154,7 +154,7 @@ export const preAuthorize = async (req, res) => {
       amount_cents,
       userId
     );
-    console.log("preAuthorizeResponse", preAuthorizeResponse);
+    // console.log("preAuthorizeResponse", preAuthorizeResponse);
     if (preAuthorizeResponse?.id) {
       // Store the pre-authorization transaction id in the database (e.g., in an orders or pre_authorizations collection)
       // Example: await storePreAuthorization(userId, preAuthorizeResponse.id);
@@ -174,7 +174,7 @@ export const preAuthorize = async (req, res) => {
 
 export const voidPreAuthorization = async (req, res) => {
   const { transaction_id } = req.body; // The transaction ID from the pre-authorization response
-  console.log("first");
+  // console.log("first");
   try {
     const authToken = await getAuthToken();
 
@@ -210,7 +210,7 @@ export const webHookController = async (req, res) => {
   const transactionId = payload.id; // Transaction ID
   const userId = payload.payment_key_claims.extra.user_id; // User ID
   const auctionId = payload.payment_key_claims.extra.auction_id; // Auction ID
-  console.log("obj", transactionId, userId, auctionId);
+  // console.log("obj", transactionId, userId, auctionId);
   if (!transactionId || !userId || !auctionId) {
     return res.status(400).json({ message: "Missing required data" });
   }
@@ -218,7 +218,7 @@ export const webHookController = async (req, res) => {
     transaction_id: transactionId,
     user_id: userId,
   };
-  console.log("success", payload.success);
+  // console.log("success", payload.success);
   if (payload.success == true) {
     try {
       const auction = await Auction.findByIdAndUpdate(
@@ -242,14 +242,14 @@ export const webHookFinalController = async (req, res) => {
   const userId = payload.payment_key_claims.extra.user_id; // User ID
   const auctionId = payload.payment_key_claims.extra.auction_id; // Auction ID
 
-  console.log("Received Webhook Payload", transactionId, userId, auctionId);
+  // console.log("Received Webhook Payload", transactionId, userId, auctionId);
 
   // Check if required data exists
   if (!transactionId || !userId || !auctionId) {
     return res.status(400).json({ message: "Missing required data" });
   }
 
-  console.log("Payment Success:", payload.success);
+  // console.log("Payment Success:", payload.success);
 
   if (payload.success === true) {
     try {
@@ -265,7 +265,7 @@ export const webHookFinalController = async (req, res) => {
         return res.status(404).json({ message: "Auction not found" });
       }
 
-      console.log("Auction payment updated:", auction);
+      // console.log("Auction payment updated:", auction);
       res
         .status(200)
         .send("Payment successfully processed and auction marked as paid");

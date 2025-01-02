@@ -6,7 +6,7 @@ const getAllUsers = async () => {
   const response = await axios.get(`${API_URL}/users`, {
     withCredentials: true,
   });
-  //console.log('response get all users', response.data);
+  //// console.log('response get all users', response.data);
   return response.data;
 };
 
@@ -15,7 +15,7 @@ const getUserById = async (data) => {
   const response = await axios.get(`${API_URL}/users/${data}`, {
     withCredentials: true,
   });
-  //console.log('response get single user', response.data);
+  //// console.log('response get single user', response.data);
   return response.data.data.user;
 };
 
@@ -28,7 +28,7 @@ const updateUserById = async (data) => {
       withCredentials: true,
     }
   );
-  //console.log('response update user', response.data);
+  //// console.log('response update user', response.data);
   return response.data.data.user;
 };
 
@@ -37,7 +37,7 @@ const deleteUserById = async (data) => {
   const response = await axios.delete(`${API_URL}/users/${data}`, {
     withCredentials: true,
   });
-  //console.log('response delete user', response.data);
+  //// console.log('response delete user', response.data);
   return response.data;
 };
 
@@ -46,7 +46,7 @@ const getTopSellers = async () => {
   const response = await axios.get(`${API_URL}/users/top-sellers`, {
     withCredentials: true,
   });
-  //console.log('response get top sellers', response.data);
+  //// console.log('response get top sellers', response.data);
   return response.data.data;
 };
 

@@ -17,10 +17,10 @@ async function updateAuctionStatus(auctionId, status) {
 }
 
 async function selectAuctionWinner(auctionId) {
-  console.log("selecting auction winner in cronJobs,,,,,,,,,,");
+  // console.log("selecting auction winner in cronJobs,,,,,,,,,,");
   io.emit("setStatus","auction ended.")
   const bids = await Bid.find({ auction: auctionId });
-  console.log(bids, "auction.........");
+  // console.log(bids, "auction.........");
 
  if(bids.length <= 0){
   return
@@ -41,7 +41,7 @@ async function selectAuctionWinner(auctionId) {
     "_id fullName email phone profilePicture"
   );
 
-  console.log(winnerUser, "winnerUser");
+  // console.log(winnerUser, "winnerUser");
 
   auction.winner = maxBidId;
   auction.status = "over";
@@ -58,11 +58,11 @@ async function selectAuctionWinner(auctionId) {
       userCart.products.push(auction._id);
       await userCart.save();
   }
-  console.log(cartItem);
+  // console.log(cartItem);
 }
 
 async function sendNotification(winner, auction){
-  console.log("sending notificaton to userin cornjosb,,,,,,,,,,,,");
+  // console.log("sending notificaton to userin cornjosb,,,,,,,,,,,,");
 
   //find auciton
   
@@ -108,7 +108,7 @@ changeStream.on('change', (change) => {
   try{
     if (change.operationType === 'insert') {
       const auction = change.fullDocument;
-  console.log("cronjobs,,,,,,,,,,,,,,,, are herer");
+  // console.log("cronjobs,,,,,,,,,,,,,,,, are herer");
       // Schedule cron jobs for the new auction
       const startCronExpression = moment(auction.startTime).format('m H D M *');
       const endCronExpression = moment(auction.endTime).format('m H D M *');
@@ -124,6 +124,6 @@ changeStream.on('change', (change) => {
     }
 
   } catch (err){
-    console.log(err, "error in cronjobs")
+    // console.log(err, "error in cronjobs")
   }
 });

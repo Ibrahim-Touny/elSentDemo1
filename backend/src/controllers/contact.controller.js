@@ -5,7 +5,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 // Contact Us Controller
 const contactUs = asyncHandler(async (req, res) => {
   const { name, email, message } = req.body;
-  console.log("body", req.body);
+  // console.log("body", req.body);
   // Validate required fields
   if (!name || !email || !message) {
     return res.status(400).json({

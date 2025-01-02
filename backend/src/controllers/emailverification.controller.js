@@ -82,9 +82,9 @@ const verifyCode = asyncHandler(async (req, res) => {
       .status(400)
       .json({ success: false, message: "Email and code are required" });
   }
-  console.log("Data", email, verificationCode);
+  // console.log("Data", email, verificationCode);
   const user = await User.findOne({ email });
-  console.log("user", user);
+  // console.log("user", user);
   if (!user) {
     return res.status(404).json({ success: false, message: "User not found" });
   }

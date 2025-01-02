@@ -24,22 +24,22 @@ const stripe = new Stripe("sk_test_51QWmgRGI6UEWLGcVrfkYdIitb29zTKm7WDBXgfklEyWe
 const addPaymentMethodToCustomer = asyncHandler(async (req, res) => {
   try {
     const { paymentMethodId } = req.body;
-    console.log(paymentMethodId, "paymentMethodId,,,,,,,");
+    // console.log(paymentMethodId, "paymentMethodId,,,,,,,");
     if (!paymentMethodId) {
       return res
         .status(400)
         .json(new ApiResponse(400, "payment Method is required"));
     }
     const getUserId = req.user._id.toString();
-    console.log(getUserId, "userId,,,,,,,,");
+    // console.log(getUserId, "userId,,,,,,,,");
 
     const stripeCustomer = await PaymentMethod.findOne({ userId: getUserId });
-    console.log(stripeCustomer, "stripeCustomer,,,,,,,,");
+    // console.log(stripeCustomer, "stripeCustomer,,,,,,,,");
 
     if (!stripeCustomer) {
       return res.status(404).json(new ApiResponse(404, "Customer not found"));
     }
-    console.log(stripeCustomer, "stripeCustomer,,,,,,,,");
+    // console.log(stripeCustomer, "stripeCustomer,,,,,,,,");
 
     const paymentMethod = await stripe.paymentMethods.attach(paymentMethodId, {
       customer: stripeCustomer?.stripeCustomerId,
@@ -58,7 +58,7 @@ const addPaymentMethodToCustomer = asyncHandler(async (req, res) => {
 
      //finde user and update verifiedPayment
      const user = await User.findById({ _id: getUserId });
-     console.log(user, "user,,,,,,,,payment method");
+     // console.log(user, "user,,,,,,,,payment method");
      if (!user) {
        return res.status(404).json(new ApiResponse(404, "User not found"));
      }
@@ -68,7 +68,7 @@ const addPaymentMethodToCustomer = asyncHandler(async (req, res) => {
       .status(200)
       .json(new ApiResponse(200, "Payment method added successfully"));
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     return res
       .status(500)
@@ -84,10 +84,10 @@ const updatePaymentMethod = asyncHandler(async (req, res) => {
   const { paymentMethodId } = req.body;
   try {
     const getUserId = req.user._id.toString();
-    console.log(getUserId, "userId,,,,,,,,");
+    // console.log(getUserId, "userId,,,,,,,,");
 
     const stripeCustomer = await PaymentMethod.findOne({ userId: getUserId });
-    console.log(stripeCustomer, "stripeCustomer,,,,,,,,");
+    // console.log(stripeCustomer, "stripeCustomer,,,,,,,,");
 
     if (!stripeCustomer) {
       return res.status(404).json(new ApiResponse(404, "Customer not found"));
@@ -144,19 +144,19 @@ const paymentCheckout = asyncHandler(async (req, res) => {
     //   },
     // ];
     const getUserId = req.user._id.toString();
-    console.log(getUserId, "userId,,,,,,,,");
+    // console.log(getUserId, "userId,,,,,,,,");
     if(!getUserId){
       return res.status(400).json(new ApiResponse(400, "User not found"));
     }
 
 
     const stripeCustomer = await PaymentMethod.findOne({ userId: getUserId });
-    console.log(stripeCustomer, "stripeCustomerId,,,,,,,,");
+    // console.log(stripeCustomer, "stripeCustomerId,,,,,,,,");
     if(!stripeCustomer){
       return res.status(400).json(new ApiResponse(400, "Customer not found"));
     }
 
-    console.log("checklk..,,,,");
+    // console.log("checklk..,,,,");
     const session = await stripe.checkout.sessions.create({
       line_items: req.body.sendProductData.lineItems,
       customer: stripeCustomer.StripeCustomerId,
@@ -165,7 +165,7 @@ const paymentCheckout = asyncHandler(async (req, res) => {
       success_url: `http://localhost:5173/success/${req.body.sendProductData.id}`,
       cancel_url: "http://localhost:5173/cancel",
     });
-    console.log("chkkkkkkkkkkkkkk,,,");
+    // console.log("chkkkkkkkkkkkkkk,,,");
 
     return res.status(201).json(session);
   } catch (error) {

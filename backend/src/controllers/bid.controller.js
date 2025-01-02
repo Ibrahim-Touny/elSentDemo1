@@ -20,13 +20,13 @@ const addBidOnItem = asyncHandler(async (req, res) => {
     if (!amount) {
       return res.status(400).json(new ApiResponse(400, "Amount is required"));
     }
-   // console.log(amount, "amount");
+   // // console.log(amount, "amount");
 
     let item = await Auction.findById(req.params.id); 
     if (!item) {
       return res.status(404).json(new ApiResponse(404, "Item not found"));
     }
-    //console.log(item, "item....");
+    //// console.log(item, "item....");
 
     if(item.status === "over") {
       return res.status(406).json(new ApiResponse(406, "Auction is over"));
@@ -97,9 +97,9 @@ const addBidOnItem = asyncHandler(async (req, res) => {
 //@access Public
 
 const getWinnerOfAuction = asyncHandler(async (req, res) => {
-  console.log(req.params.id, "req.params.id");
+  // console.log(req.params.id, "req.params.id");
   const bids = await Bid.find({ auction: req.params.id });
-  console.log(bids, "auction.........");
+  // console.log(bids, "auction.........");
 
   if (!bids) {
     return res.status(404).json(new ApiResponse(404, "Auction not found"));
@@ -125,15 +125,15 @@ const getWinnerOfAuction = asyncHandler(async (req, res) => {
     }
   }
 
-  console.log(maxAmount, "maxAmount");
-  console.log(maxBidId, "maxBid");
+  // console.log(maxAmount, "maxAmount");
+  // console.log(maxBidId, "maxBid");
   const auction = await Auction.findById(req.params.id);
   const winnerUser = await Bid.findById(maxBidId).populate(
     "bidder",
     "fullName email phone profilePicture"
   );
 
-  console.log(winnerUser, "winnerUser");
+  // console.log(winnerUser, "winnerUser");
 
   auction.winner = maxBidId;
   auction.status = "over";
@@ -147,7 +147,7 @@ const getWinnerOfAuction = asyncHandler(async (req, res) => {
       userCart.products.push(auction._id);
       await userCart.save();
   }
-  console.log(userCart);
+  // console.log(userCart);
   return res
     .status(200)
     .json(new ApiResponse(200, "Winner of the auction", winnerUser));
@@ -167,7 +167,7 @@ const getBidsByUser = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
 
 
-    console.log(bids, "bids....");
+    // console.log(bids, "bids....");
     if (!bids) {
       return res.status(404).json(new ApiResponse(404, "No bids found"));
     }
@@ -224,7 +224,7 @@ const generateVoucherCode = () => {
 };
 
 const AddVouchers =async()=>{
-    console.log("dataaaaaaaaaaaaaaaaaaaaaaaa",userData)
+    // console.log("dataaaaaaaaaaaaaaaaaaaaaaaa",userData)
     try {
         const user  = req.user;
         await Voucher.create({
@@ -234,10 +234,10 @@ const AddVouchers =async()=>{
             userEmail: user.email,
             userPhoto: user.profilePicture
         });
-        console.log("voucher created Successfully");
+        // console.log("voucher created Successfully");
         } catch (error) {
             // Handle the error
-           console.log("bid create voucher error",error);
+           // console.log("bid create voucher error",error);
         }
   
 }

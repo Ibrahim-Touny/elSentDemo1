@@ -82,7 +82,7 @@ const bidSlice = createSlice({
       state.message = "";
     });
     builder.addCase(getBidsAuctionsByUser.fulfilled, (state, action) => {
-      //console.log("action.payload.data", action.payload);
+      //// console.log("action.payload.data", action.payload);
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = true;

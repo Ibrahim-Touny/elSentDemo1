@@ -15,15 +15,15 @@ export const verifyUser = asyncHandler(async (req, res, next) => {
     }
 
     const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-    //console.log(decodedToken, "decodedToken")
+    //// console.log(decodedToken, "decodedToken")
 
     const user = await User.findById(decodedToken?._id).select("-password");
-    console.log("id of user", user?._id);
+    // console.log("id of user", user?._id);
     if (!user) {
       return res.status(401).json(new ApiResponse(401, "Unauthorized request"));
     }
 
-    //console.log(user, "user")
+    //// console.log(user, "user")
 
     req.user = user;
     
@@ -38,8 +38,8 @@ export const verifyUser = asyncHandler(async (req, res, next) => {
 export const verifySeller = asyncHandler(async (req, res, next) => {
   try {
     const user = req.user;
-    console.log(user, "user seller");
-    // console.log(user);
+    // console.log(user, "user seller");
+    // // console.log(user);
 
     if (user.userType !== "seller") {
       return res.status(403).json(new ApiResponse(403, "Access denied"));
@@ -61,8 +61,8 @@ export const verifyAdmin = asyncHandler(async (req, res, next) => {
     if (!user) {
       return res.status(401).json(new ApiResponse(401, "Unauthorized request"));
     }
-    // console.log(user);
-    //console.log(user.userType);
+    // // console.log(user);
+    //// console.log(user.userType);
 
     if (user.userType !== "admin") {
       return res.status(403).json(new ApiResponse(403, "Access denied"));

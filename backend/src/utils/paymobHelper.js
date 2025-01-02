@@ -69,8 +69,8 @@ export const voidTransaction = async (authToken, transaction_id) => {
       }
     );
   } catch (error) {
-    console.log("error", error.message, error.response && error.response.data);
+    // console.log("error", error.message, error.response && error.response.data);
   }
-  console.log("response", response.data);
+  // console.log("response", response.data);
   return response.data;
 };

@@ -11,7 +11,7 @@ import mongoose from "mongoose";
 // @route POST /api/v1/auctions
 // @access Private/ Seller only
 const createAuction = asyncHandler(async (req, res) => {
-//  console.log("files of images", req.files.images);
+//  // console.log("files of images", req.files.images);
    
   try {
     const {
@@ -157,7 +157,7 @@ const getAllAuctions = asyncHandler(async (req, res) => {
         if (cityid.length > 0) {
           filter.location = cityid[0]._id.toString();
         } else {
-          console.log("Invalid location name:", location);
+          // console.log("Invalid location name:", location);
         }
       } else {
         filter.location = location;
@@ -205,7 +205,7 @@ const getAllAuctions = asyncHandler(async (req, res) => {
 
 const getSingleAuctionById = asyncHandler(async (req, res) => {
   try {
-    console.log("single auction getting...");
+    // console.log("single auction getting...");
 
     const auction = await Auction.findById(req.params.id)
       .populate("category", "name") // Populating category
@@ -225,7 +225,7 @@ const getSingleAuctionById = asyncHandler(async (req, res) => {
           select: "fullName profilePicture",
         },
       });
-    // console.log("resp", auction);
+    // // console.log("resp", auction);
 
     if (!auction) {
       return res.status(404).json(new ApiResponse(404, "Auction not found"));
@@ -354,7 +354,7 @@ const deleteSingleAuctionById = asyncHandler(async (req, res) => {
     if (bids) {
       await Bid.deleteMany({ auction: req.params.id });
     }
-    console.log(auction, "auction.............");
+    // console.log(auction, "auction.............");
 
     await Auction.deleteOne({ _id: req.params.id });
     return res.json(
@@ -389,10 +389,10 @@ const updateSingleAuactionById = asyncHandler(async (req, res) => {
       workmanshipFee,
       incrementPrice,
     } = req.body;
-    console.log("images", req.body.images);
+    // console.log("images", req.body.images);
     const images = req.files?.map((file) => file.path); // Assuming you're using multer for handling multiple files
 
-    console.log(req.body, "req.body........");
+    // console.log(req.body, "req.body........");
     const auction = await Auction.findById(req.params.id);
     if (!auction) {
       return res.status(404).json(new ApiResponse(404, "Auction not found"));
@@ -427,7 +427,7 @@ const updateSingleAuactionById = asyncHandler(async (req, res) => {
     if (images && images.length > 0) {
       for (const image of images) {
         const imgUrlCloudinary = await uploadOnCloudinary(image);
-        console.log(imgUrlCloudinary);
+        // console.log(imgUrlCloudinary);
         if (!imgUrlCloudinary?.url) {
           return res.status(400).json(new ApiResponse(400, "Invalid image"));
         }

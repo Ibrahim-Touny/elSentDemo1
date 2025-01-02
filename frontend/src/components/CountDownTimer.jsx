@@ -16,8 +16,8 @@ const CountDownTimer = (props) => {
   const [auctionStarted, setAuctionStarted] = useState(false);
   const [auctionEnded, setAuctionEnded] = useState(false);
 
-  ////console.log("props", props);
-  ////console.log(auctionEnded, auctionStarted, "auctionEnded, auctionStarted");
+  ////// console.log("props", props);
+  ////// console.log(auctionEnded, auctionStarted, "auctionEnded, auctionStarted");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,21 +27,21 @@ const CountDownTimer = (props) => {
         currentTime >= startTime &&
         currentTime < endTime
       ) {
-        ////console.log("auction started.......");
+        ////// console.log("auction started.......");
         setAuctionStarted(true);
         //dispatch(updateAuctionStatus({ id: props?.id, status: "active" }));
         //dispatch(reset())
       }
       if (auctionStarted && currentTime >= endTime && !auctionEnded) {
         setAuctionEnded(true);
-        ////console.log("auction ended.......");
+        ////// console.log("auction ended.......");
 
         // dispatch(updateAuctionStatus({ id: props?.id, status: "completed" }));
         dispatch(selectAuctionWinner({ id: props?.id }));
         dispatch(reset());
         props?.Winner();
         setAuctionStarted(false);
-        ////console.log("auction ended.............,,,,,,,,,");
+        ////// console.log("auction ended.............,,,,,,,,,");
         clearInterval(interval);
       }
     }, 1000);

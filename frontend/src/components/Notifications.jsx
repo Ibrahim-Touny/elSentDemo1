@@ -57,9 +57,9 @@ const Notifications = () => {
 
   useEffect(() => {
     setNotificationData(notifications);
-    //console.log(notifications, " notifications........ useeffect.........");
+    //// console.log(notifications, " notifications........ useeffect.........");
     socket.on("newBidNotification", (data) => {
-      //console.log(data, " new bid notification data from socket.,,,,,,,,,,,,,,,,,,,,,,,,..........");
+      //// console.log(data, " new bid notification data from socket.,,,,,,,,,,,,,,,,,,,,,,,,..........");
 
       dispatch(getNotificationForUser());
      
@@ -72,12 +72,12 @@ const Notifications = () => {
   };
 
   const handleMarkSingleAsRead = async (id) => {
-    //console.log("button click , , ...........");
+    //// console.log("button click , , ...........");
     await dispatch(markNotificationAsRead(id));
     dispatch(getNotificationForUser());
   };
 
-  //console.log(notificationData, " notificationsData........");
+  //// console.log(notificationData, " notificationsData........");
 
   return (
     <div className="overflow-auto flex flex-col w-full px-7 py-4 bg-theme-bg text-body-text-color rounded-2xl">

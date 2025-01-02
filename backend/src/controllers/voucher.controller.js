@@ -41,7 +41,7 @@ export const getAllVouchers = asyncHandler(async (req, res) => {
             return res.status(404).json(new ApiResponse(404, "Vouchers not found"));
         }
 
-        console.log('Vouchers:', vouchers);
+        // console.log('Vouchers:', vouchers);
 
         return res.status(200).json(new ApiResponse(200, "Vouchers found", vouchers));
     } catch (error) {

@@ -31,7 +31,7 @@ const deleteCartItem=asyncHandler(async(req, res)=>{
     try {
         //get id from endpoint
         const {id} = req.params
-        console.log(id,"m,,,,,,,,,");
+        // console.log(id,"m,,,,,,,,,");
         const cart=await Cart.findOne({user:req.user._id});
         if(!cart){
             return res.status(404).json(new ApiResponse(404, "Cart not found"))

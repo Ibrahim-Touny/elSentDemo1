@@ -67,7 +67,7 @@ const Calc = () => {
       const sheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json(sheet);
       setData(jsonData);
-      //console.log(jsonData);
+      //// console.log(jsonData);
     };
     
     fetchExcelData();
@@ -158,7 +158,7 @@ const Calc = () => {
         const designCost = designCosts[design] || 0;
         const designAddition = designCost * (parseFloat(carats)/5);
         const fluorescenceReduction =fluorescencePercentages[flourescence] || 0.0;
-        console.log("Excel Price:", excelPrice);
+        // console.log("Excel Price:", excelPrice);
         let price = (piecePrice - (piecePrice * fluorescenceReduction) + designAddition)+(parseFloat(goldBasePrice) || 0);
         let finalPrice = 0;
             if (factoryProfits) {
@@ -177,10 +177,10 @@ const Calc = () => {
         setDiamondPrice(totaloutput);
         setGoldBasePrice(totaloutput); // Overwrite the migrated gold price with the calculated diamond value
       } else {
-        console.log("No matching data found");
+        // console.log("No matching data found");
       }
     } else {
-      console.log("Incomplete input");
+      // console.log("Incomplete input");
     }
   };
 

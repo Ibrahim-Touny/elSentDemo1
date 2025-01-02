@@ -103,7 +103,7 @@ const loginUser = asyncHandler(async (req, res) => {
     // secure: true,
     maxAge: 1 * 24 * 60 * 60 * 1000,
   };
-  console.log("token", JwtToken);
+  // console.log("token", JwtToken);
   req.user = loggedInUser;
   return res
     .status(200)
@@ -170,7 +170,7 @@ The MzBid Team
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        console.log(error);
+        // console.log(error);
       } else {
         res.status(200).json(
           new ApiResponse(200, "Reset token sent to your email", {
@@ -285,7 +285,7 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     const userId = req.user._id;
     //get old password and new password from frontend
     const { oldPassword, newPassword } = req.body;
-    // console.log(oldPassword, newPassword, "old and new password")
+    // // console.log(oldPassword, newPassword, "old and new password")
     //validate old password and new password
     if (!oldPassword || !newPassword) {
       return res
@@ -323,7 +323,7 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 // @access Private
 const getCurrentUser = asyncHandler(async (req, res) => {
   try {
-    console.log("getting current user.....");
+    // console.log("getting current user.....");
     const user = await User.findById(req.user._id).select("-password");
     return res
       .status(200)
@@ -364,7 +364,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @access Admin
 const getUserById = asyncHandler(async (req, res) => {
   try {
-    console.log("getting user by id.....");
+    // console.log("getting user by id.....");
     const user = await User.findById(req.params.userid).select("-password");
     return res
       .status(200)
@@ -387,7 +387,7 @@ const getUserById = asyncHandler(async (req, res) => {
 
 const updateUserById = asyncHandler(async (req, res) => {
   try {
-    console.log("updated profle in admin filed");
+    // console.log("updated profle in admin filed");
     const {
       fullName,
       email,
@@ -399,21 +399,21 @@ const updateUserById = asyncHandler(async (req, res) => {
       gender,
       description,
     } = req.body;
-    console.log(fullName, " fullname, ");
-    console.log(email, " email, ");
-    console.log(location, " location, ");
-    console.log(userType, " userType, ");
+    // console.log(fullName, " fullname, ");
+    // console.log(email, " email, ");
+    // console.log(location, " location, ");
+    // console.log(userType, " userType, ");
     const profilePath = req.file?.path;
 
     const userId = req?.params?.id;
-    console.log(userId, " KDJFKJ");
+    // console.log(userId, " KDJFKJ");
     //check user id is correct format which is for models not any other like string
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json(new ApiResponse(400, "Invalid user id"));
     }
 
-    console.log(req.body, "req.body");
-    console.log(profilePath, "req.file");
+    // console.log(req.body, "req.body");
+    // console.log(profilePath, "req.file");
 
     const user = await User.findById(userId);
     if (!user) {
@@ -421,7 +421,7 @@ const updateUserById = asyncHandler(async (req, res) => {
     }
     if (profilePath) {
       var imgUrlCloudinary = await uploadOnCloudinary(profilePath);
-      //console.log(imgUrlCloudinary);
+      //// console.log(imgUrlCloudinary);
       if (!imgUrlCloudinary?.url) {
         return res.status(400).json(new ApiResponse(400, "Invalid image"));
       }
@@ -466,7 +466,7 @@ const updateUserById = asyncHandler(async (req, res) => {
 const deleteUserById = asyncHandler(async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log(userId, "dlete a user");
+    // console.log(userId, "dlete a user");
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json(new ApiResponse(400, "Invalid user id"));
     }

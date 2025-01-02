@@ -90,6 +90,7 @@ const SingleAuctionDetail = ({ noPadding }) => {
       if (Math.floor(newBidAmount) <= singleAuctionData?.startingPrice) {
         toast.info("Bid amount should be greater than the current bid");
       } else {
+        
         dispatch(placeABid(bidData));
         setNewBidAmount("");
         socket.emit("newBid", {
@@ -113,9 +114,7 @@ const SingleAuctionDetail = ({ noPadding }) => {
     }
     //refresh page
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
+
   };
 
   socket.on("newBidData", async (data) => {
@@ -151,6 +150,9 @@ const SingleAuctionDetail = ({ noPadding }) => {
 
   const placeBidHandle = async (event) => {
     event.preventDefault();
+
+
+    // console.log("testttttttttttttttttttttttt")
     if (user?.paymentVerified === false) {
       toast.info(
         "Please verify your payment method to place a bid. Go to settings..."
@@ -227,7 +229,7 @@ const SingleAuctionDetail = ({ noPadding }) => {
         className={`flex place-content-between py-10 px-5 lg:py-20 lg:px-10 items-start gap-7 flex-wrap md:flex-nowrap ${noPadding ? "lg:py-0 px-0" : "p-4"}`}
         id="item01"
       >
-        {/*console.log("singleauction", singleAuction)*/}
+        {/*// console.log("singleauction", singleAuction)*/}
         <div className="relative rounded-xl md:max-w-[45%] w-full">
           <img
             className="rounded-xl w-full"

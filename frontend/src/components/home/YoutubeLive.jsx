@@ -11,7 +11,7 @@ const YoutubeLive = () => {
       .get("http://localhost:8000/api/v1/live")
       .then((response) => {
         const link = response.data.link.link;
-        //console.log(link);
+        //// console.log(link);
         if (link) {
           setLiveStreamLink(link); // If link exists, set it to state
           setIsLiveAvailable(true); // Mark live as available

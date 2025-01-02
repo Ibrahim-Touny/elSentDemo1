@@ -13,7 +13,7 @@ const DailyGiftDashboard = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get("http://localhost:8000/api/v1/images");
-        //console.log("respones", response);
+        //// console.log("respones", response);
         setImages(response.data);
       } catch (error) {
         //console.error("Error fetching images:", error);

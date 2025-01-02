@@ -101,7 +101,7 @@ const UploadItem = () => {
     const files = e.target.files;
     const urls = Array.from(files).map((file) => URL.createObjectURL(file));
     setImgUrls(urls);
-    //console.log("images", imgUrls);
+    //// console.log("images", imgUrls);
   };
   return (
     <div>

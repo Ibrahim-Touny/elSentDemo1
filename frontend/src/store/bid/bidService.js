@@ -10,13 +10,13 @@ export const placeABid=async(data)=>{
 
 export const getBidsAuctionsByUser=async()=>{
     const response = await axios.get(`${API_URL}/auctions/user-bids`, {withCredentials:true});
-     //console.log("response bids auction...",response.data);
+     //// console.log("response bids auction...",response.data);
     return response.data;
 };
 
 export const getAllBidsForAuction=async(id)=>{
     const response = await axios.get(`${API_URL}/bids/get-all-bids/${id}`, {withCredentials:true});
-    //console.log("response getallBids for Auctions,,,,,,,,...",response.data);
+    //// console.log("response getallBids for Auctions,,,,,,,,...",response.data);
 
     return response.data;
 }

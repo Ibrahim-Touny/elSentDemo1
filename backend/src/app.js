@@ -90,9 +90,9 @@ app.use(`/api/v1/contact`, contactRouter);
 
 
 cron.schedule("0 6 * * *", async () => {
-  console.log("Cron job started: Fetching metal prices...");
+  // console.log("Cron job started: Fetching metal prices...");
   await fetchAndStoreMetalPricesCron();
-  console.log("Cron job completed: Metal prices fetched and stored.");
+  // console.log("Cron job completed: Metal prices fetched and stored.");
 });
 
 export { app };

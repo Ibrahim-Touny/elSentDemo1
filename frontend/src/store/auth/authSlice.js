@@ -21,7 +21,7 @@ export const login = createAsyncThunk("auth/login",async (payload,thunkAPI)=>{
         
     } catch (error) {
         const message =(error.response && error.response.data.message) || error.message;
-        //console.log(message, "error message")
+        //// console.log(message, "error message")
         
         return thunkAPI.rejectWithValue({message,isError:true});
         
@@ -34,7 +34,7 @@ export  const logout= createAsyncThunk('auth/logout', async(_, thunkAPI) =>{
         return await authService.logout();
         
     } catch (error) {
-        //console.log(error.message, "error message")
+        //// console.log(error.message, "error message")
         return thunkAPI.rejectWithValue({message:error.message,isError:true});
     }
     
@@ -46,7 +46,7 @@ export const forgotPasswordSendMail= createAsyncThunk('auth/forgotPasswordSendMa
         
     } catch (error) {
         const message =(error.response && error.response.data.message) || error.message;
-        //console.log(message, "error message")
+        //// console.log(message, "error message")
         
         return thunkAPI.rejectWithValue({message,isError:true});
     }
@@ -59,7 +59,7 @@ export const resetNewPassword = createAsyncThunk('auth/resetNewPassword', async(
         
     } catch (error) {
         const message =(error.response && error.response.data.message) || error.message;
-        //console.log(message, "error message")
+        //// console.log(message, "error message")
         
         return thunkAPI.rejectWithValue({message,isError:true});
     }
@@ -72,7 +72,7 @@ export const changeCurrentPassword= createAsyncThunk('auth/changeCurrentPassword
         
     } catch (error) {
         const message =(error.response && error.response.data.message) || error.message;
-        //console.log(message, "error message")
+        //// console.log(message, "error message")
         
         return thunkAPI.rejectWithValue({message,isError:true});
     }
@@ -86,7 +86,7 @@ export const getCurrentUser= createAsyncThunk('auth/getCurrentUser', async(_, th
         
     } catch (error) {
         const message =(error.response && error.response.data.message) || error.message;
-        //console.log(message, "error message")
+        //// console.log(message, "error message")
         
         return thunkAPI.rejectWithValue({message,isError:true});
     }
@@ -99,7 +99,7 @@ export const updateProfile= createAsyncThunk('auth/updateProfile', async(payload
         
     } catch (error) {
         const message =(error.response && error.response.data.message) || error.message;
-        //console.log(message, "error message")
+        //// console.log(message, "error message")
         
         return thunkAPI.rejectWithValue({message,isError:true});
     }

@@ -10,7 +10,7 @@ import Bid from "../models/bid.model.js";
 // soche
 const sendNotification = asyncHandler(async (req, res) => {
   const { auctionId, type, newBidAmount, fullName } = req.body;
-  console.log("fullName", fullName);
+  // console.log("fullName", fullName);
   //check auctionid , type , ammount
   if (!auctionId || !type || !newBidAmount) {
     return res

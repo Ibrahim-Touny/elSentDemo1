@@ -174,7 +174,7 @@ const deleteProductCategory = asyncHandler(async (req, res) => {
 
 const getCatgegoriesMoreDetail = asyncHandler(async (req, res)=>{
     try {
-        console.log("start........");
+        // console.log("start........");
         const totalCategories = await ProductCategory.countDocuments();
 
         //find a categegory which have most products from Auction Model and get it
@@ -204,7 +204,7 @@ const getCatgegoriesMoreDetail = asyncHandler(async (req, res)=>{
         
         const recentlyAddedCategory = await ProductCategory.findOne().sort({ 'createdAt': -1 });
 
-        console.log(totalCategories, recentlyAddedCategory);
+        // console.log(totalCategories, recentlyAddedCategory);
         res.status(200).json(new ApiResponse(200, "Product categories retrieved successfully", {
             totalCategories,
              mostPopulatedCategory ,
@@ -246,7 +246,7 @@ const getTopCategories = asyncHandler(async (req, res) => {
                 $limit: 5
             }
         ]);
-        console.log(topCategories);
+        // console.log(topCategories);
         res.status(200).json(new ApiResponse(200, "Top 5 categories retrieved successfully", topCategories));
     } catch (error) {
         return res.status(500).json(new ApiResponse(500, error?.message || "Internal server error"));

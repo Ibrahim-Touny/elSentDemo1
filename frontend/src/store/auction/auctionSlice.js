@@ -4,7 +4,7 @@ import auctionService from "./auctionService";
 export const createAuction = createAsyncThunk(
   "auction/createAuction",
   async (payload, thunkAPI) => {
-    //console.log("payload", payload);
+    //// console.log("payload", payload);
     try {
       return await auctionService.createAuction(payload);
     } catch (error) {
@@ -245,7 +245,7 @@ const auctionSlice = createSlice({
       state.isError = false;
       state.isSuccess = true;
       state.message = action.payload.message;
-      //console.log("singleauction", action.payload);
+      //// console.log("singleauction", action.payload);
       state.singleAuction = action.payload.data;
     });
     builder.addCase(getSingleAuctionById.rejected, (state, action) => {

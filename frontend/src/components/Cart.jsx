@@ -11,7 +11,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Add the useNavigate hook
 
-  //console.log(cartItem);
+  //// console.log(cartItem);
 
   useEffect(() => {
     dispatch(getCartItems());

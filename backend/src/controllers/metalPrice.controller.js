@@ -13,7 +13,7 @@ const fetchAndStoreMetalPrices = asyncHandler(async (req, res, next) => {
       }
     });
 
-    console.log('API response:', response.data);
+    // console.log('API response:', response.data);
 
     const prices = response.data.rates;
     if (!prices) {
@@ -58,9 +58,9 @@ const fetchAndStoreMetalPrices = asyncHandler(async (req, res, next) => {
 
 const fetchAndStoreMetalPricesCron = async () => {
   try {
-    console.log('Cron job started: Fetching metal prices...');
+    // console.log('Cron job started: Fetching metal prices...');
     await fetchAndStoreMetalPrices();
-    console.log('Cron job completed: Metal prices fetched and stored.');
+    // console.log('Cron job completed: Metal prices fetched and stored.');
   } catch (error) {
     console.error('Error in cron job:', error);
   }

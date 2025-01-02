@@ -38,9 +38,9 @@ export const holdAmount = async (req, res) => {
     const auction = req.body.auction || req.body; // Auction details from the request body
     const user = req.user || userObject; // User details stored in req.user
     const [first_name, ...last_nameParts] = user.fullName.split(" ");
-    console.log("auction");
+    // console.log("auction");
     const last_name = last_nameParts.join(" ");
-    console.log("alo", wallet_integration_id, card_integration_id);
+    // console.log("alo", wallet_integration_id, card_integration_id);
     // Ensure necessary fields are provided
     if (
       !auction.startingPrice ||
@@ -159,8 +159,8 @@ export const finalPayment = async (req, res) => {
     ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
-    console.log("usets", auction.users[0]);
-    console.log("usets", auction.users[1]);
+    // console.log("usets", auction.users[0]);
+    // console.log("usets", auction.users[1]);
     // Check if the user._id exists in the auction users array
     const userExistsInAuction = auction.users.some(
       (auctionUser) => auctionUser.user_id?.toString() === user._id.toString()
@@ -230,14 +230,14 @@ export const finalPayment = async (req, res) => {
 export const refundTransactions = async (req, res) => {
   try {
     const auction = req.body.auction || req.body; // Auction details from the request body
-    console.log("auction", auction);
+    // console.log("auction", auction);
     if (!auction || !auction.users || !Array.isArray(auction.users)) {
       return res.status(400).json({ error: "Invalid auction data" });
     }
 
     const refundPromises = auction.users.map(async (user) => {
       if (user.transaction_id) {
-        console.log("user", user);
+        // console.log("user", user);
         const payload = {
           transaction_id: user.transaction_id,
           amount_cents: 10, // Amount to refund in cents

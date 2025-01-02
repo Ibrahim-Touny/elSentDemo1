@@ -23,19 +23,19 @@ const AuctionUsers = ({ match }) => {
     dispatch(getSingleAuctionById(auctionId)); // Fetch auction by ID
     dispatch(getAllUsers()); // Fetch all users
   }, [dispatch, auctionId]);
-  //   console.log("users", singleAuction);
+  //   // console.log("users", singleAuction);
   useEffect(() => {
     if (isSuccess) {
       // Filter users who are in the current singleAuction
-      //   console.log("user", singleAuction.users);
-      //   console.log("users", allUser);
+      //   // console.log("user", singleAuction.users);
+      //   // console.log("users", allUser);
       const filteredUsers = allUser.filter((user) =>
         singleAuction.users?.some(
           (auctionUser) => auctionUser.user_id == user._id
         )
       );
       setUsersInAuction(filteredUsers);
-      //   console.log("filtered users", filteredUsers);
+      //   // console.log("filtered users", filteredUsers);
     } else if (isError) {
       toast.error(message);
     }
@@ -49,7 +49,7 @@ const AuctionUsers = ({ match }) => {
       toast.success("Refund processed successfully");
     } catch (error) {
       toast.error("Refund failed. Please try again.");
-      console.log("error in refund", error.message);
+      // console.log("error in refund", error.message);
     }
   };
 

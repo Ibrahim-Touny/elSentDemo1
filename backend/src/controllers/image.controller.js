@@ -9,8 +9,8 @@ import ApiResponse from "../utils/ApiResponse.js";
 const uploadImages = asyncHandler(async (req, res) => {
   try {
     const files = req?.files?.images; // `images` is the field name
-    console.log("files", files);
-    console.log("body", req.body);
+    // console.log("files", files);
+    // console.log("body", req.body);
     if (!files) {
       return res.status(400).json(new ApiResponse(400, "No files provided"));
     }
@@ -19,7 +19,7 @@ const uploadImages = asyncHandler(async (req, res) => {
 
     const uploadedImages = await Promise.all(
       filesArray.map(async (file) => {
-        console.log("result", file);
+        // console.log("result", file);
         const result = await uploadOnCloudinary(file.tempFilePath);
         const newImage = await Image.create({
           url: result.secure_url,
@@ -49,7 +49,7 @@ const getImages = asyncHandler(async (req, res) => {
 });
 
 const deleteImage = asyncHandler(async (req, res) => {
-  console.log("first", req.params);
+  // console.log("first", req.params);
   const { id } = req.params;
   try {
     const deletedImage = await Image.findByIdAndDelete(id);

@@ -9,7 +9,7 @@ const AdminPanel = () => {
   const [link, setLink] = useState("");
 
   const updateLink = async () => {
-    //console.log("ss", link);
+    //// console.log("ss", link);
     try {
       await axios.put("http://localhost:8000/api/v1/live", { link });
       toast.success("Live stream link updated successfully!");

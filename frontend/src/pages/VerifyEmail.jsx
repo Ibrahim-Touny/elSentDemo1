@@ -45,7 +45,7 @@ const EmailVerificationPage = () => {
           withCredentials: true,
         }
       );
-      //console.log("response.data", response.data);
+      //// console.log("response.data", response.data);
       if (response.data && response.data.success) {
         toast.success("Email verified successfully!");
       } else {
