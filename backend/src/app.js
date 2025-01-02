@@ -15,7 +15,7 @@ import rateLimit  from "express-rate-limit" // security
 const app = express();
 app.use(helmet());
 const limiter = rateLimit({
-  max: 100,
+  max: 1000,
   windowMs: 60 * 60 * 1000,
   message: 'too many requests please try again later',
 });
