@@ -42,7 +42,7 @@ const addBidOnItem = asyncHandler(async (req, res) => {
       bidAmount: req.body.amount,
     })
    
-    const itreator=Math.ceil((amount-  item.startingPrice)/item.incrementPrice);
+    const itreator=Math.ceil((amount-  item.startingPrice)/50);
       
         for(let i = 0; i < itreator; i++) {
        
