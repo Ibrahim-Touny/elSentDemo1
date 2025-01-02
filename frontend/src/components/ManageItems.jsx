@@ -65,7 +65,7 @@ const ManageItems = () => {
       <h2 className="text-white font-bold text-xl border-b border-border-info-color pb-3 mb-5 ">
         Manage Items
       </h2>
-      {// console.log("alooo", auction)}
+      {/* console.log("alooo", auction)*/}
       <div className="overflow-auto px-4 bg-theme-bg2 rounded-2xl border border-border-info-color">
         <table className="text-left whitespace-nowrap w-full border-separate border-spacing-x-0 border-spacing-y-4">
           <thead className="table-header-group">
