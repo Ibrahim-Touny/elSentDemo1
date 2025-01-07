@@ -41,7 +41,7 @@ const sendVerificationCode = asyncHandler(async (req, res) => {
       from: process.env.USER_EMAIL,
       to: user.email,
       subject: "Your Verification Code",
-    text: `Dear ${user.fullName},
+      text: `Dear ${user.fullName},
 
 Your verification code is ${verificationCode}. It is valid for 10 minutes.
 
@@ -54,7 +54,7 @@ Best regards,
 The MzBid Team  
 
 ---
-© ${year} MzBid. All rights reserved.`
+© ${year} MzBid. All rights reserved.`,
     };
 
     await transporter.sendMail(mailOptions);

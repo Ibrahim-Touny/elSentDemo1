@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllAuctions, reset } from "../store/auction/auctionSlice";
 import CountDownTimer from "../components/CountDownTimer";
@@ -11,6 +11,7 @@ import { sendNewBidNotification } from "../store/notification/notificationSlice"
 import socket from "../socket";
 import Loading from "../components/Loading";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import axios from "axios";
 
 const SingleAuctionDetail = ({ noPadding }) => {
   const [newBidAmount, setNewBidAmount] = useState("");
@@ -30,6 +31,26 @@ const SingleAuctionDetail = ({ noPadding }) => {
   const [singleAuction, setSingleAuction] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const handleHoldAmount = async () => {
+    if (!auction) return;
+
+    try {
+      console.log("first");
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/paymob/hold",
+        { auction: singleAuction } // Send the whole auction object
+      );
+      // Check if the response was successful
+      if (response.status === 200) {
+        toast.success("Amount has been held successfully!");
+        // navigate("/some-success-page"); // Navigate to a success page
+        window.location.href = response.data.link;
+      }
+    } catch (error) {
+      console.error("Error holding the amount:", error);
+      toast.error("Failed to hold amount. Please try again.");
+    }
+  };
   useEffect(() => {
     dispatch(getAllAuctions());
 
@@ -90,7 +111,6 @@ const SingleAuctionDetail = ({ noPadding }) => {
       if (Math.floor(newBidAmount) <= singleAuctionData?.startingPrice) {
         toast.info("Bid amount should be greater than the current bid");
       } else {
-        
         dispatch(placeABid(bidData));
         setNewBidAmount("");
         socket.emit("newBid", {
@@ -113,8 +133,6 @@ const SingleAuctionDetail = ({ noPadding }) => {
       }
     }
     //refresh page
-
-
   };
 
   socket.on("newBidData", async (data) => {
@@ -147,10 +165,13 @@ const SingleAuctionDetail = ({ noPadding }) => {
     socket.emit("joinAuction", loggedInUser?._id);
     socket.on("newUserJoined", (data) => {});
   }, []);
+  const navigate = useNavigate();
+  const holdAmount = (id) => {
+    navigate(`/hold-amount/${id}`);
+  };
 
   const placeBidHandle = async (event) => {
     event.preventDefault();
-
 
     // console.log("testttttttttttttttttttttttt")
     if (user?.paymentVerified === false) {
@@ -465,7 +486,7 @@ const SingleAuctionDetail = ({ noPadding }) => {
                           </div>
                           {logInUser ? (
                             user?.paymentVerified ? (
-                              <div className="ml-auto">
+                              <div className="ml-auto flex gap-2">
                                 <button
                                   type="button"
                                   className="bg-color-primary py-2 px-4 rounded-lg text-white"
@@ -475,13 +496,21 @@ const SingleAuctionDetail = ({ noPadding }) => {
                                 </button>
                               </div>
                             ) : (
-                              <div className="ml-auto">
+                              <div className="ml-auto flex gap-2">
                                 <button
                                   type="button"
                                   className="bg-color-primary py-2 px-4 rounded-lg text-white"
                                   onClick={() => confirmBid()}
                                 >
                                   Confirm Bid
+                                </button>
+                                <button
+                                  type="button"
+                                  className="bg-color-primary py-2 px-4 rounded-lg text-white"
+                                  // onClick={() => holdAmount(singleAuction._id)}
+                                  onClick={() => handleHoldAmount()}
+                                >
+                                  Hold Amount
                                 </button>
                               </div>
                             )

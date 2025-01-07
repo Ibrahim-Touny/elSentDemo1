@@ -24,7 +24,7 @@ const router = Router();
 // router.route("/preauthorize").post(preAuthorize);
 // router.route("/void").post(voidPreAuthorization);
 // router.route("/refund").post(refund);
-router.route("/hold").post(verifyUser, holdAmount);
+router.route("/hold").post(holdAmount);
 router.route("/final").post(verifyUser, finalPayment);
 router.route("/refund").post(verifyUser, verifySeller, refundTransactions);
 

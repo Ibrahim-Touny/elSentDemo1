@@ -42,6 +42,8 @@ export const holdAmount = async (req, res) => {
     const last_name = last_nameParts.join(" ");
     // console.log("alo", wallet_integration_id, card_integration_id);
     // Ensure necessary fields are provided
+    console.log("user", user);
+    console.log("auction", auction);
     if (
       !auction.startingPrice ||
       // !auction.items ||

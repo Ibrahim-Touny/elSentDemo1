@@ -36,6 +36,7 @@ import PaymentPage from "./pages/Payment";
 import EmailVerificationPage from "./pages/VerifyEmail";
 import DailyGiftDashboard from "./pages/DailyGiftDashboard";
 import AuctionUsers from "./pages/Refund";
+import HoldAmount from "./pages/holdAmount";
 
 const App = () => {
   const { user } = useSelector((state) => state.auth);
@@ -47,7 +48,7 @@ const App = () => {
         <Routes>
           <Route path="/admin/login" element={<Login />} />
           <Route path="/" element={<Home />} />
-
+          <Route path="/hold-amount/:id" element={<HoldAmount />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
