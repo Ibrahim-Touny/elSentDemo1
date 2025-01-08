@@ -99,7 +99,13 @@ const SingleAuctionDetail = ({ noPadding }) => {
 
   const confirmBid = () => {
     const { fullName, email, phone, address } = user;
-
+    const userFound = singleAuctionData.users.some(
+      (myUser) => myUser.user_id == user._id
+    );
+    if (!userFound) {
+      toast.warning("You must pay the hold amount first!");
+      return false;
+    }
     if (!fullName || !email || !phone || !address) {
       toast.error("Please fill all your profile fields first!");
       return false;

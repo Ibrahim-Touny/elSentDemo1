@@ -5,7 +5,6 @@ import ApiResponse from "../utils/ApiResponse.js";
 import User from "../models/user.model.js";
 //Error handling
 export const verifyUser = asyncHandler(async (req, res, next) => {
-  console.log("token", req.cookies?.JwtToken);
   try {
     const token =
       req.cookies?.JwtToken || req.headers.authorization?.split(" ")[1];
