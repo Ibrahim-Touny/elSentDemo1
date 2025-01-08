@@ -495,6 +495,14 @@ const SingleAuctionDetail = ({ noPadding }) => {
                                 >
                                   Confirm Bid
                                 </button>
+                                <button
+                                  type="button"
+                                  className="bg-color-primary py-2 px-4 rounded-lg text-white"
+                                  // onClick={() => holdAmount(singleAuction._id)}
+                                  onClick={() => handleHoldAmount()}
+                                >
+                                  Hold Amount
+                                </button>
                               </div>
                             ) : (
                               <div className="ml-auto flex gap-2">
