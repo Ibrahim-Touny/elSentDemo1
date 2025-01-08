@@ -26,20 +26,21 @@ const Cart = () => {
   const handlePayment = async (product) => {
     try {
       const requestData = {
+        auction: product,
         amount_cents: product.startingPrice * 100, // Convert price to cents
       };
 
       const response = await axios.post(
-        "http://localhost:8000/api/v1/paymob", // Replace with your actual backend endpoint
+        "http://localhost:8000/api/v1/paymob/final", // Replace with your actual backend endpoint
         requestData,
         {
           withCredentials: true, // If cookies or auth are required
         }
       );
-
-      if (response.data && response.data.payment_link) {
+      console.log("response", response);
+      if (response.data && response.data.link) {
         toast.success("Redirecting to payment...");
-        window.open(response.data.payment_link, "_blank"); // Open the payment link in a new tab
+        window.open(response.data.link, "_blank"); // Open the payment link in a new tab
       } else {
         toast.error("Failed to get the payment link.");
       }

@@ -62,7 +62,7 @@ export const holdAmount = async (req, res) => {
     // Prepare the request payload for Paymob API
     const payload = {
       alo1: "s",
-      amount: 100000, //amount in cents
+      amount: 10000, //amount in cents
       currency: "EGP",
       payment_methods: [card_integration_id], // Replace with actual Integration ID
       // items: auction.items.map((item) => ({
@@ -145,12 +145,10 @@ export const finalPayment = async (req, res) => {
       __v: 0,
       _id: "676c5055a4611b7db6b27e41",
     };
-
     const auction = req.body.auction || req.body; // Auction details from the request body
     const user = req.user || userObject; // User details stored in req.user
     const [first_name, ...last_nameParts] = user.fullName.split(" ");
     const last_name = last_nameParts.join(" ");
-
     // Ensure necessary fields are provided
     if (
       !auction.startingPrice ||
@@ -181,19 +179,22 @@ export const finalPayment = async (req, res) => {
 
     // Prepare the request payload for Paymob API
     const payload = {
-      amount: auction.startingPrice - 100000 || 5000000, // Amount in cents
+      amount:
+        auction.startingPrice > 100
+          ? (auction.startingPrice - 100) * 100
+          : 5000000, // Amount in cents
       currency: "EGP",
       payment_methods: [card_integration_id], // Replace with actual Integration ID
       billing_data: {
         apartment: "dummy",
-        first_name: first_name,
-        last_name: last_name,
+        first_name: first_name || "NA",
+        last_name: last_name || "NA",
         street: "dummy",
         building: "dummy",
-        phone_number: user.phone,
+        phone_number: user.phone || "NA",
         city: "dummy",
         country: "dummy",
-        email: user.email,
+        email: user.email || "NA",
         floor: "dummy",
         state: "dummy",
       },
@@ -206,8 +207,9 @@ export const finalPayment = async (req, res) => {
       // "https://a2d3-41-234-201-253.ngrok-free.app/api/v1/paymob/webhook-final", // Replace with your actual webhook URL
       redirection_url: `http://localhost:5173/single-auction-detail/${auction._id}`, // Replace with your actual redirection URL
     };
-
+    // console.log("payload", payload);
     // Make the API request to Paymob for the final payment
+
     const response = await axios.post(
       "https://accept.paymob.com/v1/intention/",
       payload,
