@@ -134,6 +134,9 @@ const SingleAuctionDetail = ({ noPadding }) => {
       }
     }
     //refresh page
+    setTimeout(() => {
+      dispatch(getAllAuctions());
+    }, 1000);
   };
 
   socket.on("newBidData", async (data) => {
