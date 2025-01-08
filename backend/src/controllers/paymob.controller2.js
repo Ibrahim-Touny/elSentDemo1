@@ -34,9 +34,10 @@ export const holdAmount = async (req, res) => {
       __v: 0,
       _id: "676c5055a4611b7db6b27e41",
     };
+    console.log("user", req.user);
 
     const auction = req.body.auction || req.body; // Auction details from the request body
-    const user = req.user || userObject; // User details stored in req.user
+    const user = req.user; // User details stored in req.user
     const [first_name, ...last_nameParts] = user.fullName.split(" ");
     // console.log("auction");
     const last_name = last_nameParts.join(" ");

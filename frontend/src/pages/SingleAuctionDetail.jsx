@@ -38,7 +38,8 @@ const SingleAuctionDetail = ({ noPadding }) => {
       console.log("first");
       const response = await axios.post(
         "http://localhost:8000/api/v1/paymob/hold",
-        { auction: singleAuction } // Send the whole auction object
+        { auction: singleAuction }, // Send the whole auction object
+        { withCredentials: true }
       );
       // Check if the response was successful
       if (response.status === 200) {
